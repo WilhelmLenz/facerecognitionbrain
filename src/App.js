@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { Component } from 'react';
 import Navigation from './components/Navigation/Navigation';
 import ImageLinkForm from './components/ImageLinkForm/ImageLinkForm';
 import Logo from './components/Logo/Logo';
@@ -10,10 +10,28 @@ import particlesOptions from "./particles.json";
 import './App.css';
 
 
-function App() {
-  const particlesInit = useCallback(main => {
-    loadFull(main);
-  }, [])
+class App extends Component {
+  // eslint-disable-next-line no-useless-constructor
+  constructor() {
+    super();
+    this.state = {
+      'input': '',
+    }
+  }
+
+  onInputChange = (event) => {
+    console.log(event.target.value);
+  }
+
+  onButtonSubmit = () => {
+    console.log('Click');
+  }
+
+  render() {
+
+  const particlesInit = async(main) => {
+    await loadFull(main);
+  }
 
     return (
       <div className="App">
@@ -21,10 +39,11 @@ function App() {
         <Navigation />
         <Logo />
         <Rank />
-        <ImageLinkForm />
+        <ImageLinkForm onInputChange={this.onInputChange} onButtonSubmit={this.onButtonSubmit}/>
        {/* <Facerecognition />  */}
       </div>
     );
+    }
   }
 
 export default App;
